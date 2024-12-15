@@ -7,12 +7,17 @@ import EmergencyAlertModal from "../components/EmergencyAlertModal";
 const HomePage = () => {
   const [showModal, setShowModal] = useState(false);
   const [mainUserStatus, setMainUserStatus] = useState("All Good");
+  const [mainUserEmoji, setMainUserEmoji] = useState("✅");
 
   const groupMembers = [
     { name: "Jaewon", status: "I am so drunk", battery: 15, emoji: "🍺" },
     { name: "Patrick", status: "Left", battery: 45, emoji: "✌️" },
     { name: "Murat", status: "Walking to 1020!", battery: 67, emoji: "🚶" },
   ];
+
+  const handleEmojiChange = (emoji) => {
+    setMainUserEmoji(emoji); // Update the main user's emoji
+  };
 
   return (
     <div className="bg-gray-100 min-h-screen pt-6">
@@ -40,7 +45,8 @@ const HomePage = () => {
           <h2 className="text-lg font-semibold text-gray-700 mb-4">
             Status Update
           </h2>
-          <StatusGrid />
+          {/* StatusGrid handles all the status emojis */}
+          <StatusGrid onEmojiSelect={handleEmojiChange} />
         </div>
 
         {/* Members */}
@@ -52,7 +58,7 @@ const HomePage = () => {
               name="Jacob"
               status={mainUserStatus}
               battery={82}
-              emoji="✅"
+              emoji={mainUserEmoji}
               onStatusChange={(newStatus) => setMainUserStatus(newStatus)}
             />
 

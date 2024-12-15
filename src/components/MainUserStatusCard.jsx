@@ -52,7 +52,7 @@ const MainUserStatusCard = ({
                 <button
                   onClick={handleSave}
                   className="btn btn-xs btn-success flex items-center justify-center p-1 mr-1"
-                  style={{ width: "28px", height: "28px" }}
+                  style={{ width: "28px", height: "32px" }}
                 >
                   ▲
                 </button>
@@ -78,7 +78,7 @@ const MainUserStatusCard = ({
 
       {/* Right Section: Emoji and Battery */}
       <div className="flex flex-col items-center justify-center">
-        <span className="text-lg mb-1">{emoji}</span>
+        <span className="text-3xl mb-1">{emoji}</span>
         <div className="flex items-center gap-1 text-sm text-green-500">
           <span>🔋</span>
           <span>{battery}%</span>

@@ -1,6 +1,6 @@
 import React from "react";
 
-const StatusGrid = () => {
+const StatusGrid = ({ onEmojiSelect }) => {
   const statuses = [
     { emoji: "✅", label: "All Good" },
     { emoji: "🚶", label: "Walking" },
@@ -17,7 +17,8 @@ const StatusGrid = () => {
       {statuses.map((status, index) => (
         <button
           key={index}
-          className="flex flex-col items-center justify-center bg-gray-100 p-3 rounded-lg shadow-sm"
+          onClick={() => onEmojiSelect(status.emoji)} // Trigger emoji selection
+          className="flex flex-col items-center justify-center bg-gray-100 p-3 rounded-lg shadow-sm hover:bg-gray-200 transition-colors duration-200"
         >
           <span className="text-2xl mb-1">{status.emoji}</span>
           <span className="text-xs font-medium text-gray-600">
