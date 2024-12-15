@@ -7,12 +7,12 @@ import BottomNavbar from "./components/BottomNavbar";
 import Header from "./components/Header";
 
 const App = () => (
-  <div className="min-h-screen flex flex-col pt-16">
-    {/* Header always at the top */}
+  <div className="min-h-screen flex flex-col">
+    {/* Fixed Header */}
     <Header />
 
-    {/* Main Content */}
-    <div className="flex-1">
+    {/* Main Content starts after the header */}
+    <div className="flex-1 mt-16 mb-16">
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/create-group" element={<CreateGroupPage />} />
@@ -28,7 +28,7 @@ const App = () => (
       </Routes>
     </div>
 
-    {/* Bottom Navbar Always Visible */}
+    {/* Fixed Bottom Navbar */}
     <BottomNavbar />
   </div>
 );

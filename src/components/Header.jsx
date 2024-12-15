@@ -1,9 +1,9 @@
 import React from "react";
 
 const Header = () => (
-  <header className="bg-white py-4 shadow-md fixed top-0 w-full z-10">
-    <div className="container mx-auto flex justify-center">
-      <h1 className="text-2xl font-bold text-red-600">TABS</h1>
+  <header className="fixed top-0 left-0 right-0 bg-white shadow-md z-10">
+    <div className="flex justify-center items-center h-16">
+      <h1 className="text-2xl font-bold text-blue-600">TABS</h1>
     </div>
   </header>
 );
