@@ -18,10 +18,6 @@ const App = () => (
         <Route path="/create-group" element={<CreateGroupPage />} />
         <Route path="/emergency" element={<EmergencyPage />} />
         <Route
-          path="/map"
-          element={<div className="p-4 text-center">Map Page</div>}
-        />
-        <Route
           path="/settings"
           element={<div className="p-4 text-center">Settings Page</div>}
         />

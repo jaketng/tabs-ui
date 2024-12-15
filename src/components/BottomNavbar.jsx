@@ -6,7 +6,6 @@ const BottomNavbar = () => {
 
   const navItems = [
     { name: "Home", icon: "🏠", path: "/" },
-    { name: "Map", icon: "🗺️", path: "/map" }, // Placeholder for Map page
     { name: "Create", icon: "➕", path: "/create-group" },
     { name: "Settings", icon: "⚙️", path: "/settings" }, // Placeholder for Settings page
   ];
