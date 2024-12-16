@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import BatteryIndicator from "./BatteryIndicator";
 
 const MainUserStatusCard = ({
   name,
@@ -77,12 +78,9 @@ const MainUserStatusCard = ({
       </div>
 
       {/* Right Section: Emoji and Battery */}
-      <div className="flex flex-col items-center justify-center">
-        <span className="text-3xl mb-1">{emoji}</span>
-        <div className="flex items-center gap-1 text-sm text-green-500">
-          <span>🔋</span>
-          <span>{battery}%</span>
-        </div>
+      <div className="flex flex-col items-center justify-center gap-2">
+        <span className="text-3xl">{emoji}</span>
+        <BatteryIndicator percentage={battery} />
       </div>
     </div>
   );

@@ -1,4 +1,5 @@
 import React from "react";
+import BatteryIndicator from "./BatteryIndicator";
 
 const MemberCard = ({ name, status, battery, emoji }) => {
   return (
@@ -15,11 +16,9 @@ const MemberCard = ({ name, status, battery, emoji }) => {
       </div>
 
       {/* Right Section: Emoji and Battery */}
-      <div className="flex flex-col items-center justify-center">
-        <span className="text-3xl mb-1">{emoji}</span> {/* Larger Emoji */}
-        <span className="text-sm text-green-500 flex items-center">
-          🔋 {battery}%
-        </span>
+      <div className="flex flex-col items-center justify-center gap-2">
+        <span className="text-3xl">{emoji}</span>
+        <BatteryIndicator percentage={battery} />
       </div>
     </div>
   );

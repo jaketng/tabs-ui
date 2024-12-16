@@ -8,13 +8,11 @@ import Header from "./components/Header";
 
 const App = () => (
   <div className="min-h-screen flex flex-col">
-    {/* Fixed Header */}
     <Header />
-
-    {/* Main Content starts after the header */}
     <div className="flex-1 mt-16 mb-16">
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/group/:groupId" element={<HomePage />} />
         <Route path="/create-group" element={<CreateGroupPage />} />
         <Route path="/emergency" element={<EmergencyPage />} />
         <Route
@@ -23,8 +21,6 @@ const App = () => (
         />
       </Routes>
     </div>
-
-    {/* Fixed Bottom Navbar */}
     <BottomNavbar />
   </div>
 );
