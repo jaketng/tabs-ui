@@ -5,10 +5,6 @@ const Header = () => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [groups, setGroups] = useState([]);
 
-  useEffect(() => {
-    fetchGroups();
-  }, []);
-
   const fetchGroups = async () => {
     try {
       const response = await fetch('/api/groups');
@@ -20,6 +16,22 @@ const Header = () => {
       console.error('Error fetching groups:', error);
     }
   };
+
+  useEffect(() => {
+    fetchGroups();
+    
+    // Add event listener for group updates
+    const handleGroupsUpdated = () => {
+      fetchGroups();
+    };
+    
+    window.addEventListener('groupsUpdated', handleGroupsUpdated);
+    
+    // Cleanup
+    return () => {
+      window.removeEventListener('groupsUpdated', handleGroupsUpdated);
+    };
+  }, []);
 
   return (
     <header className="fixed top-0 left-0 right-0 bg-white shadow-md z-10">

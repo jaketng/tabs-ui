@@ -13,23 +13,31 @@ const HomePage = () => {
   const [groupData, setGroupData] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchGroupData = async () => {
-      try {
-        // If no groupId is provided, fetch the first/default group
-        const url = groupId ? `/api/groups/${groupId}` : '/api/groups';
-        const response = await fetch(url);
-        const data = await response.json();
-        
-        // If we fetched all groups (no groupId), use the first one
-        setGroupData(groupId ? data : data[0]);
-        setLoading(false);
-      } catch (error) {
-        console.error('Error fetching group data:', error);
-        setLoading(false);
+  const fetchGroupData = async () => {
+    try {
+      // If no groupId is provided, fetch the first/default group
+      const url = groupId ? `/api/groups/${groupId}` : '/api/groups';
+      const response = await fetch(url);
+      const data = await response.json();
+      
+      // If we fetched all groups (no groupId), use the first one
+      const groupToUse = groupId ? data : data[0];
+      setGroupData(groupToUse);
+      
+      // Update main user status and emoji from the fetched data
+      if (groupToUse && groupToUse.members.length > 0) {
+        setMainUserStatus(groupToUse.members[0].status);
+        setMainUserEmoji(groupToUse.members[0].emoji);
       }
-    };
+      
+      setLoading(false);
+    } catch (error) {
+      console.error('Error fetching group data:', error);
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchGroupData();
   }, [groupId]);
 
@@ -40,6 +48,18 @@ const HomePage = () => {
   if (!groupData) {
     return <div className="p-4">Group not found</div>;
   }
+
+  const handleStatusChange = async (newStatus) => {
+    // Update local state immediately for better UX
+    setMainUserStatus(newStatus);
+    if (groupData && groupData.members.length > 0) {
+      groupData.members[0].status = newStatus;
+      setGroupData({ ...groupData });
+    }
+    
+    // Refresh data from server
+    await fetchGroupData();
+  };
 
   // Find the main user (first member) and other members
   const mainUser = groupData.members[0];
@@ -53,9 +73,12 @@ const HomePage = () => {
   const hoursLeft = Math.max(0, Math.floor((expiresAt - now) / (1000 * 60 * 60)));
   const minutesLeft = Math.max(0, Math.floor(((expiresAt - now) % (1000 * 60 * 60)) / (1000 * 60)));
 
-  const handleEmojiChange = (emoji) => {
+  const handleEmojiChange = async (emoji) => {
     setMainUserEmoji(emoji);
-    // Here you would typically update the server with the new emoji
+    if (groupData && groupData.members.length > 0) {
+      groupData.members[0].emoji = emoji;
+      setGroupData({ ...groupData });
+    }
   };
 
   return (
@@ -96,10 +119,10 @@ const HomePage = () => {
             {/* Main User First */}
             <MainUserStatusCard
               name={mainUser.name}
-              status={mainUser.status}
+              status={mainUserStatus}
               battery={mainUser.battery}
               emoji={mainUserEmoji}
-              onStatusChange={(newStatus) => setMainUserStatus(newStatus)}
+              onStatusChange={handleStatusChange}
             />
 
             {/* Other Members */}

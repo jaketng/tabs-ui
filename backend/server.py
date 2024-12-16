@@ -1,9 +1,6 @@
-# server.py
 from flask import Flask, request, jsonify
-from flask_cors import CORS
 from datetime import datetime, timedelta
 app = Flask(__name__)
-CORS(app)
 
 # Initial group data
 groups_data = [{
@@ -26,6 +23,7 @@ def get_groups():
 
 @app.route('/api/groups', methods=['POST'])
 def create_group():
+    global groups_data
     json_data = request.get_json()
     
     # Generate new group ID
@@ -42,7 +40,7 @@ def create_group():
     }
     
     groups_data.append(new_group)
-    return jsonify(new_group)
+    return jsonify(new_group), 201  # Return 201 Created status
 
 @app.route('/api/groups/<int:group_id>', methods=['GET'])
 def get_group(group_id):
@@ -50,6 +48,21 @@ def get_group(group_id):
     if group:
         return jsonify(group)
     return jsonify({"error": "Group not found"}), 404
+
+@app.route('/api/groups/<int:group_id>/update-status', methods=['POST'])
+def update_member_status(group_id):
+    json_data = request.get_json()
+    member_name = json_data.get('name')
+    new_status = json_data.get('status')
+    
+    for group in groups_data:
+        if group['id'] == group_id:
+            for member in group['members']:
+                if member['name'] == member_name:
+                    member['status'] = new_status
+                    return jsonify(group)
+    
+    return jsonify({"error": "Group or member not found"}), 404
 
 if __name__ == '__main__':
     app.run(debug=True)

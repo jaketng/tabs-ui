@@ -61,7 +61,14 @@ const CreateGroupForm = () => {
       });
       
       if (response.ok) {
-        navigate('/'); // Navigate back to home page
+        // After successful group creation, trigger a custom event
+        window.dispatchEvent(new CustomEvent('groupsUpdated'));
+        
+        // Get the new group data
+        const newGroup = await response.json();
+        
+        // Navigate to the new group's page
+        navigate(`/group/${newGroup.id}`);
       }
     } catch (error) {
       console.error('Error creating group:', error);

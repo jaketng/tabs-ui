@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import CreateGroupPage from "./pages/CreateGroupPage";
 import EmergencyPage from "./pages/EmergencyPage";
+import SettingsPage from "./pages/SettingsPage";
 import BottomNavbar from "./components/BottomNavbar";
 import Header from "./components/Header";
 
@@ -15,10 +16,7 @@ const App = () => (
         <Route path="/group/:groupId" element={<HomePage />} />
         <Route path="/create-group" element={<CreateGroupPage />} />
         <Route path="/emergency" element={<EmergencyPage />} />
-        <Route
-          path="/settings"
-          element={<div className="p-4 text-center">Settings Page</div>}
-        />
+        <Route path="/settings" element={<SettingsPage />} />
       </Routes>
     </div>
     <BottomNavbar />
