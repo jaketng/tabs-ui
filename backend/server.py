@@ -65,4 +65,4 @@ def update_member_status(group_id):
     return jsonify({"error": "Group or member not found"}), 404
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(port=8000, debug=True)   
